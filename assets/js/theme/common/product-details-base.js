@@ -733,18 +733,26 @@ export default class ProductDetailsBase {
             viewModel.priceSaved.$span.html(price.saved.formatted);
         }
 
-        if (price.non_sale_price_with_tax) {
+        if (price.non_sale_price_with_tax || price.sale_price_with_tax) {
             viewModel.priceLabel.$span.hide();
             viewModel.nonSaleWithTax.$div.show();
             viewModel.priceNowLabel.$span.show();
-            viewModel.nonSaleWithTax.$span.html(price.non_sale_price_with_tax.formatted);
+            viewModel.nonSaleWithTax.$span.html(
+                price.sale_price_with_tax
+                    ? price.sale_price_with_tax.formatted
+                    : price.non_sale_price_with_tax.formatted,
+            );
         }
 
-        if (price.non_sale_price_without_tax) {
+        if (price.non_sale_price_without_tax || price.sale_price_without_tax) {
             viewModel.priceLabel.$span.hide();
             viewModel.nonSaleWithoutTax.$div.show();
             viewModel.priceNowLabel.$span.show();
-            viewModel.nonSaleWithoutTax.$span.html(price.non_sale_price_without_tax.formatted);
+            viewModel.nonSaleWithoutTax.$span.html(
+                price.sale_price_without_tax
+                    ? price.sale_price_without_tax.formatted
+                    : price.non_sale_price_without_tax.formatted,
+            );
         }
     }
 

@@ -3,11 +3,13 @@ import CatalogPage from './catalog';
 import compareProducts from './global/compare-products';
 import FacetedSearch from './common/faceted-search';
 import { createTranslationDictionary } from './common/utils/translations-utils';
+import OrderModal from './b2b/order-modal';
 
 export default class Category extends CatalogPage {
     constructor(context) {
         super(context);
         this.validationDictionary = createTranslationDictionary(context);
+        this.orderModal = new OrderModal(context);
     }
 
     setLiveRegionAttributes($element, roleType, ariaLiveStatus) {
@@ -36,13 +38,15 @@ export default class Category extends CatalogPage {
 
         compareProducts(this.context);
 
+        // Wire the B2B order modal for all list-view Order buttons
+        this.orderModal.init();
+
         this.initFacetedSearch();
 
         if (!$('#facetedSearch').length) {
             this.onSortBySubmit = this.onSortBySubmit.bind(this);
             hooks.on('sortBy-submitted', this.onSortBySubmit);
 
-            // Refresh range view when shop-by-price enabled
             const urlParams = new URLSearchParams(window.location.search);
 
             if (urlParams.has('search_query')) {

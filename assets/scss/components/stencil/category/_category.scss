@@ -9,3 +9,229 @@
 .category-header-image {
     width: 100%;
 }
+
+
+// B2B Order Modal
+// -----------------------------------------------------------------------------
+// Rendered inside Cornerstone's existing #previewModal container.
+
+.b2bModal {
+    // Header: product name + price
+    &-header {
+        display: flex;
+        align-items: flex-start;
+        gap: spacing("base");
+        margin-bottom: spacing("base");
+        padding-bottom: spacing("base");
+        border-bottom: container("border");
+    }
+
+    &-meta {
+        flex: 1;
+    }
+
+    &-title {
+        font-size: fontSize("larger");
+        font-weight: fontWeight("bold");
+        margin: 0 0 spacing("quarter");
+        line-height: 1.3;
+    }
+
+    &-price {
+        margin: 0;
+        color: color("primary");
+        font-weight: fontWeight("semibold");
+    }
+
+    // Scrollable table wrapper so long variant lists don't overflow viewport
+    &-tableWrap {
+        max-height: 55vh;
+        overflow-y: auto;
+        border: container("border");
+        border-radius: 3px;
+        margin-bottom: spacing("base");
+    }
+
+    // Variant table
+    &-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: fontSize("smaller");
+    }
+
+    &-th {
+        position: sticky;
+        top: 0;
+        background: color("greys", "lightest");
+        text-align: left;
+        padding: spacing("half") spacing("base");
+        font-weight: fontWeight("semibold");
+        border-bottom: container("border");
+        white-space: nowrap;
+
+        &--price,
+        &--msrp {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        &--stock {
+            width: 8rem;
+        }
+
+        &--qty {
+            text-align: center;
+            width: 6rem;
+        }
+    }
+
+    &-row {
+        &:nth-child(even) {
+            background: color("greys", "lightest");
+        }
+
+        &:hover {
+            background: lighten(color("secondary"), 10%);
+        }
+
+        &--outOfStock {
+            background-color: color("greys", "lightest") !important;
+            opacity: 0.65;
+        }
+    }
+
+    &-cell {
+        padding: spacing("half") spacing("base");
+        border-bottom: 1px solid color("greys", "lighter");
+        vertical-align: middle;
+
+        &--sku {
+            color: color("greys", "medium");
+            font-size: fontSize("smallest");
+            white-space: nowrap;
+        }
+
+        &--price {
+            text-align: right;
+            font-weight: fontWeight("semibold");
+            white-space: nowrap;
+        }
+
+        &--msrp {
+            text-align: right;
+            color: color("greys", "dark");
+            white-space: nowrap;
+        }
+
+        &--stock {
+            width: 8rem;
+            white-space: nowrap;
+        }
+
+        &--qty {
+            text-align: center;
+            width: 6rem;
+        }
+    }
+
+    // Inventory status badges
+    &-stock {
+        display: inline-block;
+        padding: 2px spacing("half");
+        border-radius: 3px;
+        font-size: fontSize("smallest");
+        font-weight: fontWeight("semibold");
+        white-space: nowrap;
+
+        &--in {
+            background: #e6f4ea;
+            color: #137333;
+        }
+
+        &--low {
+            background: #fef7e0;
+            color: #b06000;
+        }
+
+        &--out {
+            background: #fce8e6;
+            color: #c5221f;
+        }
+    }
+
+    // QTY number input — clean, compact
+    &-qtyInput {
+        width: 4.5rem;
+        text-align: center;
+        padding: spacing("quarter") spacing("half");
+        font-size: fontSize("base");
+        border: container("border");
+        border-radius: 3px;
+        appearance: textfield; // hide browser spin arrows (they re-appear on focus via CSS below)
+
+        &:focus {
+            outline: none;
+            border-color: color("primary");
+            box-shadow: 0 0 0 2px rgba(color("primary"), 0.2);
+            appearance: auto; // show spin arrows on focus for easy increment
+        }
+
+        &:disabled {
+            background-color: color("greys", "lighter");
+            color: color("greys", "medium");
+            cursor: not-allowed;
+            border-color: color("greys", "light");
+        }
+
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            opacity: 0;
+        }
+
+        &:focus::-webkit-inner-spin-button,
+        &:focus::-webkit-outer-spin-button {
+            opacity: 1;
+        }
+    }
+
+    // Footer: feedback + action buttons
+    &-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: spacing("half");
+    }
+
+    &-feedback {
+        flex: 1;
+        margin: 0;
+        font-size: fontSize("smaller");
+        color: color("success");
+        min-height: 1.4em; // prevent layout jump
+
+        &--error {
+            color: color("error");
+        }
+    }
+
+    &-footerActions {
+        display: flex;
+        gap: spacing("half");
+        align-items: center;
+    }
+
+    // States
+    &-loading,
+    &-error {
+        padding: spacing("double") 0;
+        text-align: center;
+        color: color("greys", "medium");
+        font-style: italic;
+    }
+
+    &-error {
+        color: color("error");
+        font-style: normal;
+    }
+}

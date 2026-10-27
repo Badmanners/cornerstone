@@ -18,7 +18,8 @@ If you are making a change here or in price-range.html, you probably want to mak
             {{price.rrp_with_tax.formatted}}
         </span>
     </div>
-    <div class="price-section price-section--withTax non-sale-price--withTax" {{#unless price.non_sale_price_with_tax}}style="display: none;"{{/unless}}>
+    <span data-product-msrp-value style="display: none;">{{#if price.sale_price_with_tax.formatted}}{{price.sale_price_with_tax.formatted}}{{else if price.sale_price_with_tax.value}}{{price.sale_price_with_tax.value}}{{else if price.non_sale_price_with_tax.formatted}}{{price.non_sale_price_with_tax.formatted}}{{else if price.non_sale_price_with_tax.value}}{{price.non_sale_price_with_tax.value}}{{/if}}</span>
+    <div class="price-section price-section--withTax non-sale-price--withTax" {{#unless price.sale_price_with_tax}}{{#unless price.non_sale_price_with_tax}}style="display: none;"{{/unless}}{{/unless}}>
         <span>
             {{> components/products/price-label
                 label_value=theme_settings.pdp-non-sale-price-label
@@ -26,7 +27,11 @@ If you are making a change here or in price-range.html, you probably want to mak
             }}
         </span>
         <span data-product-non-sale-price-with-tax class="price price--non-sale">
-            {{price.non_sale_price_with_tax.formatted}}
+            {{#if price.sale_price_with_tax}}
+                {{price.sale_price_with_tax.formatted}}
+            {{else}}
+                {{price.non_sale_price_with_tax.formatted}}
+            {{/if}}
         </span>
     </div>
     <div class="price-section price-section--withTax price--withTax" {{#unless price.with_tax}}style="display: none;"{{/unless}}>
@@ -55,7 +60,8 @@ If you are making a change here or in price-range.html, you probably want to mak
             {{price.rrp_without_tax.formatted}}
         </span>
     </div>
-    <div class="price-section price-section--withoutTax non-sale-price--withoutTax{{#if price.with_tax}} price-section--minor{{/if}}" {{#unless price.non_sale_price_without_tax}}style="display: none;"{{/unless}}>
+    <span data-product-msrp-without-tax-value style="display: none;">{{#if price.sale_price_without_tax.formatted}}{{price.sale_price_without_tax.formatted}}{{else if price.sale_price_without_tax.value}}{{price.sale_price_without_tax.value}}{{else if price.non_sale_price_without_tax.formatted}}{{price.non_sale_price_without_tax.formatted}}{{else if price.non_sale_price_without_tax.value}}{{price.non_sale_price_without_tax.value}}{{/if}}</span>
+    <div class="price-section price-section--withoutTax non-sale-price--withoutTax{{#if price.with_tax}} price-section--minor{{/if}}" {{#unless price.sale_price_without_tax}}{{#unless price.non_sale_price_without_tax}}style="display: none;"{{/unless}}{{/unless}}>
         <span>
             {{> components/products/price-label
                 label_value=theme_settings.pdp-non-sale-price-label
@@ -63,7 +69,11 @@ If you are making a change here or in price-range.html, you probably want to mak
             }}
         </span>
         <span data-product-non-sale-price-without-tax class="price price--non-sale">
-            {{price.non_sale_price_without_tax.formatted}}
+            {{#if price.sale_price_without_tax}}
+                {{price.sale_price_without_tax.formatted}}
+            {{else}}
+                {{price.non_sale_price_without_tax.formatted}}
+            {{/if}}
         </span>
     </div>
     <div class="price-section price-section--withoutTax price--withoutTax" {{#unless price.without_tax}}style="display: none;"{{/unless}}>
